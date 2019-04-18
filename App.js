@@ -1,36 +1,49 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Font, AppLoading, Constants } from 'expo';
 import {Ionicons} from '@expo/vector-icons';
-import { Root, Content, Fab, Icon, Container} from 'native-base';
+import { Root, Content, Fab, Icon, Container, Drawer, List, ListItem, Image } from 'native-base';
+import { createStackNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
+
 import NavBar from './NavBar';
 import CardGrid from './CardGrid';
+import CategoriesPage from './CategoriesPage';
+import ItemListPage from './ItemListPage';
+import NavDrawer from './NavDrawer';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      isFabActive: false}
-    ;
+      loading: true
+    };
   }
 
   render() {
     if (this.state.loading)
       return <AppLoading />
-    return (
-      <Root>
-        <NavBar />
-        <CardGrid />
-        <Fab
-            active={this.state.isFabActive}
-            direction="up"
-            position="bottomRight"
-            onPress={() => this.setState({isFabActive: !this.state.isFabActive})}>
-            <Icon name="add" />  
-          </Fab>
-      </Root>
-    );
+
+    // once fonts are loaded, set up navigation
+    const AppNavigator = createDrawerNavigator({
+      Categories: {
+        screen: CategoriesPage
+      },
+      ItemList: {
+        screen: ItemListPage
+      }
+    }, {
+      initialRouteName: 'Categories',
+      /*navigationOptions: {
+        header: <NavBar />,
+        headerStyle: {
+          backgroundColor: 'transparent'
+        }
+      }*/
+      contentComponent: props => <NavDrawer {...props} />
+    });
+    const AppContainer = createAppContainer(AppNavigator);
+
+    return <AppContainer />;
   }
 
   async componentDidMount() {

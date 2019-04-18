@@ -11,7 +11,7 @@ export default class NavBar extends React.Component {
     return (
       <Header style={{marginTop: Constants.statusBarHeight}}>
         <Left>
-          <Button transparent><Icon name='menu'/></Button>
+          <Button transparent onPress={() => this.props.navigation.openDrawer()}><Icon name='menu'/></Button>
         </Left>
         <Body>
           <Title>OptimEyes</Title>
