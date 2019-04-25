@@ -24,7 +24,7 @@ export default class App extends React.Component {
       return <AppLoading />
 
     // once fonts are loaded, set up navigation
-    const AppNavigator = createDrawerNavigator({
+    const AppNavigator = createStackNavigator({
       Categories: {
         screen: CategoriesPage
       },
@@ -32,14 +32,14 @@ export default class App extends React.Component {
         screen: ItemListPage
       }
     }, {
-      initialRouteName: 'Categories',
-      /*navigationOptions: {
-        header: <NavBar />,
+      initialRouteName: 'ItemList',
+      defaultNavigationOptions: {
+        header: props => <NavBar {...props}/>,
         headerStyle: {
           backgroundColor: 'transparent'
         }
-      }*/
-      contentComponent: props => <NavDrawer {...props} />
+      }
+      /*contentComponent: props => <NavDrawer {...props} />*/
     });
     const AppContainer = createAppContainer(AppNavigator);
 

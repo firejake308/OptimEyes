@@ -17,7 +17,7 @@ export default class CategoriesPage extends React.Component {
     render() {
         return (
             <Root>
-              <NavBar navigation={this.props.navigation}/>
+              
               <CardGrid />
               <Fab
                   active={this.state.isFabActive}
