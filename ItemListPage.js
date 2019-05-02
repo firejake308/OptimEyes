@@ -7,9 +7,8 @@ import NavBar from './NavBar';
 
 export default class ItemListPage extends React.Component {
     render() {
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         return (
-            <Content>
+            <Content style={{backgroundColor: '#eceff1'}}>
                 <View>
                     <Text>This is a placeholder for the tag stream</Text>
                 </View>

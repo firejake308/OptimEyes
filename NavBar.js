@@ -24,15 +24,15 @@ export default class NavBar extends React.Component {
         this.props.navigation.goBack();
     };
     return (
-      <Header style={{marginTop: Constants.statusBarHeight}}>
+      <Header style={{marginTop: Constants.statusBarHeight, backgroundColor: '#cfd8dc'}}>
         <Left>
-          <Button transparent onPress={() => this.props.navigation.pop()}><Icon name={menuOrBack()}/></Button>
+          <Button transparent onPress={() => this.props.navigation.pop()}><Icon name={menuOrBack()} style={{color: 'black'}}/></Button>
         </Left>
         <Body>
-          <Title>OptimEyes</Title>
+          <Title style={{color: 'black'}}>OptimEyes</Title>
         </Body>
         <Right>
-          <Button transparent><Icon name="search" /></Button>
+          <Button transparent><Icon name="search" style={{color: 'black'}}/></Button>
         </Right>
       </Header>
     );

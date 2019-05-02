@@ -2,8 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Font, AppLoading, Constants } from 'expo';
 import {Ionicons} from '@expo/vector-icons';
-import { Root, Content, Fab, Icon, Container, Drawer, List, ListItem, Image } from 'native-base';
+import { StyleProvider } from 'native-base';
 import { createStackNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
+
+import getTheme from './native-base-theme/components';
+import commonColor from './native-base-theme/variables/commonColor';
 
 import NavBar from './NavBar';
 import CardGrid from './CardGrid';
@@ -43,7 +46,11 @@ export default class App extends React.Component {
     });
     const AppContainer = createAppContainer(AppNavigator);
 
-    return <AppContainer />;
+    return (
+      <StyleProvider style={getTheme(commonColor)}>
+        <AppContainer />
+      </StyleProvider>
+    );
   }
 
   async componentDidMount() {

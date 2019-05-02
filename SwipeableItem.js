@@ -1,16 +1,27 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, Platform, TouchableNativeFeedback, TouchableHighlight } from 'react-native';
 
+import TextInput from './TextInput';
+
 export default class SwipeableItem extends React.Component {
-    onTouchEnd(evt) {
-        console.log('end: '+evt.nativeEvent.timestamp);
+    constructor(props) {
+        super(props);
     }
 
     render() {
-        const item = this.props.item.item;
+        const item = this.props.item;
         const pic = "https://img1.cookinglight.timeinc.net/sites/default/files/1502826406/1708w-getty-fruit-closeup-CarstenSchanter-EyeEm.jpg";
+        
+        console.log(item.id+' is selected: '+this.props.selected)
+        // callbacks
+        var toggleSelected = (evt) => {
+            //this.setState({isSelected: !this.state.isSelected});
+            // inform parent
+            this.props.onSelected();
+        }
+
         const renderElement = (
-            <View style={styles.mainContainer}>
+            <View style={[styles.mainContainer, this.props.selected ? styles.activeItem : null]}>
                 <Image source={item.uri} style={styles.thumbnail}/>
                 <View style={styles.bodyContainer}>
                     <View style={{flexGrow: 1}}>
@@ -18,17 +29,21 @@ export default class SwipeableItem extends React.Component {
                         <Text style={styles.subtitle}>{item.store}</Text>
                     </View>
                     <Text style={styles.priceDisplay}>${item.price}</Text>
+                    {/* this.state.isSelected ?
+                        <TextInput></TextInput>
+                    : <Text style={styles.priceDisplay}>${item.price}</Text> */}
                 </View>
             </View>
         );
         if (Platform.OS === 'android')
             return (
                 <TouchableNativeFeedback
-                    onLongPress={this.onTouchEnd}>
+                    onPress={toggleSelected}
+                    background={TouchableNativeFeedback.SelectableBackground()}>
                     {renderElement}
                 </TouchableNativeFeedback>);
         else
-            return <TouchableHighlight onLongPress={this.onTouchEnd}>{renderElement}</TouchableHighlight>;
+            return <TouchableHighlight onLongPress={this.props.onSelected}>{renderElement}</TouchableHighlight>;
     }
 }
 
@@ -57,5 +72,9 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         color: 'rgba(0, 0, 0, 0.6)'
+    },
+    activeItem: {
+        opacity: 0.85,
+        backgroundColor: '#cccccc'
     }
 })
